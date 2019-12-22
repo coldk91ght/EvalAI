@@ -121,8 +121,8 @@ class BaseAPITestClass(APITestCase):
 class DownloadAndExtractZipFileTest(BaseAPITestClass):
     def setUp(self):
         super(DownloadAndExtractZipFileTest, self).setUp()
-        self.zip_name = "/test"
-        self.req_url = "{}{}".format(self.testserver, self.zip_name)
+        self.zip_name = "test"
+        self.req_url = "{}/{}".format(self.testserver, self.zip_name)
         self.extract_location = join(self.BASE_TEMP_DIR, "test-dir")
         self.download_location = join(self.extract_location, "{}.zip".format(self.zip_name))
         create_dir(self.extract_location)
