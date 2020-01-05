@@ -43,8 +43,7 @@ THIRD_PARTY_APPS += [  # noqa: ignore=F405
     "silk",
 ]
 
-# Dramatiq should come before our apps + conventional order
-INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + OUR_APPS  # noqa
+INSTALLED_APPS = DEFAULT_APPS + OUR_APPS + THIRD_PARTY_APPS  # noqa
 
 SPAGHETTI_SAUCE = {
     "apps": [
@@ -82,7 +81,7 @@ DRAMATIQ_BROKER = {
         "aws_access_key_id": os.environ.get('AWS_ACCESS_KEY_ID', 'x'),
         "aws_secret_access_key": os.environ.get('AWS_SECRET_ACCESS_KEY', 'x'),
     },
-    "NAMESPACE": "",
+    "NAMESPACE": "dramatiq_sqs_tests",
     "MIDDLEWARE": [
         "dramatiq.middleware.Prometheus",
         "dramatiq.middleware.AgeLimit",
@@ -96,7 +95,7 @@ DRAMATIQ_BROKER = {
 
 # Defines which database should be used to persist Task objects when the
 # AdminMiddleware is enabled.  The default value is "default"
-DRAMATIQ_TASKS_DATABASE = "default"
+DRAMATIQ_TASKS_DATABASE = "evalai"
 
 # Prevents Datetime warning by showing errors
 warnings.filterwarnings(
