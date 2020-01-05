@@ -3,6 +3,9 @@ import logging
 import os
 import shutil
 
+from dramatiq.middleware import AgeLimit, TimeLimit, Callbacks, Pipelines, Prometheus, Retries
+from dramatiq_sqs import SQSBroker
+
 from challenges.models import ChallengePhase
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -17,6 +20,24 @@ from .utils import get_file_from_url
 from .sender import publish_submission_message
 
 logger = logging.getLogger(__name__)
+
+
+broker = SQSBroker(
+    namespace="dramatiq_sqs_tests",
+    middleware=[
+        Prometheus(),
+        AgeLimit(),
+        TimeLimit(),
+        Callbacks(),
+        Pipelines(),
+        Retries(min_backoff=1000, max_backoff=900000, max_retries=96),
+    ],
+    endpoint_url="http://127.0.0.1:9324",
+    region_name="us-east-1",
+    aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
+    aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY'),
+)
+dramatiq.set_broker(broker)
 
 
 @dramatiq.actor
