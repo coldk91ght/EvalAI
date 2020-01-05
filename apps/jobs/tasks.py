@@ -22,24 +22,6 @@ from .sender import publish_submission_message
 logger = logging.getLogger(__name__)
 
 
-broker = SQSBroker(
-    namespace="dramatiq_sqs_tests",
-    middleware=[
-        Prometheus(),
-        AgeLimit(),
-        TimeLimit(),
-        Callbacks(),
-        Pipelines(),
-        Retries(min_backoff=1000, max_backoff=900000, max_retries=96),
-    ],
-    endpoint_url="http://127.0.0.1:9324",
-    region_name="us-east-1",
-    aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
-    aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY'),
-)
-dramatiq.set_broker(broker)
-
-
 @dramatiq.actor
 def download_file_and_publish_submission_message(
     request_data,
