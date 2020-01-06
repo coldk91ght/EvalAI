@@ -1,3 +1,3 @@
 #!/bin/sh
-cd /code && \
-env PYTHONPATH=. dramatiq dramatiq_conf
+cd /code/evalai && \
+dramatiq dramatiq_conf
