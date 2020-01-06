@@ -1,3 +1,5 @@
+import dramatiq
+
 from dramatiq.middleware import AgeLimit, TimeLimit, Callbacks, Pipelines, Prometheus, Retries
 from dramatiq_sqs import SQSBroker
 
