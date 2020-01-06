@@ -6,7 +6,7 @@ RUN mkdir /code
 WORKDIR /code
 
 ADD requirements/* /code/
-ADD ./evalai/dramatiq.py /code/
+ADD ./evalai/dramatiq_conf.py /code/
 
 RUN pip install -r dev.txt
 

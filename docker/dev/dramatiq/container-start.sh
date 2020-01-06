@@ -1,3 +1,3 @@
 #!/bin/sh
 cd /code && \
-dramatiq dramatiq
+dramatiq dramatiq_conf
