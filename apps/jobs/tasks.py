@@ -7,7 +7,7 @@ from challenges.models import ChallengePhase
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.http import HttpRequest
-from evalai.dramatiq import broker
+from evalai.dramatiq_conf import broker
 from participants.models import ParticipantTeam
 from participants.utils import (
     get_participant_team_id_of_user_for_a_challenge
