@@ -70,6 +70,9 @@ MIDDLEWARE += [  # noqa: ignore=F405
 
 SILKY_PYTHON_PROFILER = True
 
+ENDPOINT_URL = "http://127.0.0.1:9324"
+AWS_SQS_ENDPOINT = "http://127.0.0.1:9324"
+
 # Prevents Datetime warning by showing errors
 warnings.filterwarnings(
     "error",
