@@ -205,6 +205,9 @@ service_definition = """
     "cluster":"{CLUSTER}",
     "serviceName":"{service_name}",
     "taskDefinition":"{task_def_arn}",
+    "deploymentConfiguration": {{
+        "maximumPercent": 200,
+    }},
     "desiredCount":1,
     "clientToken":"{client_token}",
     "launchType":"FARGATE",
@@ -222,6 +225,9 @@ service_definition = """
         }}
     }},
     "schedulingStrategy":"REPLICA",
+    "deploymentController":{{
+        "type": "ECS"
+    }},
 }}
 """
 
