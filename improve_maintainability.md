@@ -194,11 +194,12 @@ def get_or_create_sqs_queue_object(queue_name):
             logger.exception("Cannot get queue: {}".format(queue_name))
         queue = sqs.create_queue(QueueName=queue_name)
     return queue
-	```
+```
 </details>
 <details>
 	<summary>https://github.com/Cloud-CV/EvalAI/blob/master/scripts/workers/submission_worker.py#L632-L664</summary>
-	```python
+
+```python
 def get_or_create_sqs_queue(queue_name):
     """
     Returns:
@@ -233,6 +234,7 @@ def get_or_create_sqs_queue(queue_name):
         queue = sqs.create_queue(QueueName=queue_name)
     return queue
 ```
+
 </details>
 <details>
 	<summary>https://github.com/Cloud-CV/EvalAI/blob/master/apps/jobs/sender.py#L16-L55</summary>
