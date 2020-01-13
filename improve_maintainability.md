@@ -426,6 +426,7 @@ Note: the status codes returned are different in the above two cases for the sam
 Refer: https://github.com/Cloud-CV/EvalAI/issues/2542 
 
 <br>
+
 These changes can help improve code maintainability greatly.
 Apart from this, extra refactoring can be done so as to remove
 problems such as "too many return statements" or "too deeply nested statements",
