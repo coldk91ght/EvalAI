@@ -352,6 +352,7 @@ Use a common helper for achieving both
         }
         return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
 ```
+</details>
 
 #### Remove code duplication
 <details>
@@ -419,7 +420,7 @@ Note: the status codes returned are different in the above two cases for the sam
             response_data = {"error": message}
             return Response(response_data, status.HTTP_406_NOT_ACCEPTABLE)
 ```
-
+</details>
 
 #### Improve code structure for remote_submission_worker and submission_worker
 Refer: https://github.com/Cloud-CV/EvalAI/issues/2542 
