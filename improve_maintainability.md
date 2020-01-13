@@ -11,7 +11,7 @@ except DjangoModelName.DoesNotExist:
     response_data = {"error": "DjangoModelName does not exist"}
     return Response(response_data, HTTP.406_NOT_ACCEPTABLE)   
 ```
-This type of code has been used in several places throughout the codebase in challenges/views.py, jobs/views.py, hosts/views.py, participants/views.py
+This type of code has been used in several places throughout the codebase in challenges/views.py, jobs/views.py, hosts/views.py, participants/views.py. A common helper can therefore be created to improve readability and reduce complexity.
 
 Note: For consistency and keeping helper functions on same level of abstraction, a similar helper function for `DjangoModel.objects.filter` should be considered.
 #### Remove code duplication
