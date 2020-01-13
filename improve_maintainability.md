@@ -430,3 +430,5 @@ These changes can help improve code maintainability greatly.
 Apart from this, extra refactoring can be done so as to remove
 problems such as "too many return statements" or "too deeply nested statements",
 many of which will be already solved by merging these changes.
+
+Reference used: https://codeclimate.com/github/Cloud-CV/EvalAI/issues
