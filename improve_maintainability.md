@@ -86,7 +86,8 @@ Remove code duplication in:
 Use common method `requests.request` 
 <details>
 	<summary>https://github.com/Cloud-CV/EvalAI/blob/master/scripts/workers/remote_submission_worker.py#L333-L396</summary>
-	```python
+<p>
+```python
 def make_request(url, method, data=None):
     headers = get_request_headers()
     if method == "GET":
@@ -152,6 +153,7 @@ def make_request(url, method, data=None):
             raise
         return response.json()
 	```
+</p>
 </details>
 Refer: https://github.com/Cloud-CV/evalai-cli/pull/237/files
 #### Remove code duplication
