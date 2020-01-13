@@ -18,6 +18,7 @@ Note: For consistency and keeping helper functions on same level of abstraction,
 Remove code duplication in:
 <details>
 	<summary>https://github.com/Cloud-CV/EvalAI/blob/master/apps/challenges/views.py#L275-L284</summary>
+	<p>
 	```python
     if len(challenge.allowed_email_domains) > 0:
         if not is_user_in_allowed_email_domains(user_email, challenge_pk):
@@ -31,6 +32,7 @@ Remove code duplication in:
                 response_data, status=status.HTTP_406_NOT_ACCEPTABLE
             )
 	```
+	</p>
 </details>
 <details>
 	<summary>https://github.com/Cloud-CV/EvalAI/blob/master/apps/participants/views.py#L230-L240</summary>
