@@ -18,8 +18,8 @@ Note: For consistency and keeping helper functions on same level of abstraction,
 Remove code duplication in:
 <details>
 	<summary>https://github.com/Cloud-CV/EvalAI/blob/master/apps/challenges/views.py#L275-L284</summary>
-	<p>
-	```python
+
+```python
     if len(challenge.allowed_email_domains) > 0:
         if not is_user_in_allowed_email_domains(user_email, challenge_pk):
             message = "Sorry, users with {} email domain(s) are only allowed to participate in this challenge."
@@ -31,12 +31,12 @@ Remove code duplication in:
             return Response(
                 response_data, status=status.HTTP_406_NOT_ACCEPTABLE
             )
-	```
-	</p>
+```
 </details>
 <details>
 	<summary>https://github.com/Cloud-CV/EvalAI/blob/master/apps/participants/views.py#L230-L240</summary>
-	```python
+	
+```python
             if len(challenge.allowed_email_domains) > 0:
                 if not is_user_in_allowed_email_domains(email, challenge_pk):
                     message = "Sorry, users with {} email domain(s) are only allowed to participate in this challenge."
@@ -48,13 +48,15 @@ Remove code duplication in:
                     return Response(
                         response_data, status=status.HTTP_406_NOT_ACCEPTABLE
                     )
-	```
+```
 </details>
+
 #### Remove code duplication
 Remove code duplication in:
 <details>
 	<summary>https://github.com/Cloud-CV/EvalAI/blob/master/apps/challenges/views.py#L287-L296</summary>
-	```python
+	
+```python
     if is_user_in_blocked_email_domains(user_email, challenge_pk):
         message = "Sorry, users with {} email domain(s) are not allowed to participate in this challenge."
         domains = ""
@@ -65,11 +67,12 @@ Remove code duplication in:
         return Response(
             response_data, status=status.HTTP_406_NOT_ACCEPTABLE
         )
-	```
+```
 </details>
 <details>
 	<summary>https://github.com/Cloud-CV/EvalAI/blob/master/apps/participants/views.py#L243-L252</summary>
-	```python
+	
+```python
             if is_user_in_blocked_email_domains(email, challenge_pk):
                 message = "Sorry, users with {} email domain(s) are not allowed to participate in this challenge."
                 domains = ""
@@ -80,13 +83,14 @@ Remove code duplication in:
                 return Response(
                     response_data, status=status.HTTP_406_NOT_ACCEPTABLE
                 )
-	```
+```
 </details>
+
 #### Remove conditional ladder from remote_submission_worker
 Use common method `requests.request` 
 <details>
 	<summary>https://github.com/Cloud-CV/EvalAI/blob/master/scripts/workers/remote_submission_worker.py#L333-L396</summary>
-<p>
+
 ```python
 def make_request(url, method, data=None):
     headers = get_request_headers()
@@ -152,14 +156,16 @@ def make_request(url, method, data=None):
             )
             raise
         return response.json()
-	```
-</p>
+```
+
 </details>
 Refer: https://github.com/Cloud-CV/evalai-cli/pull/237/files
+
 #### Remove code duplication
 <details>
 	<summary>https://github.com/Cloud-CV/EvalAI/blob/master/apps/base/utils.py#L157-L184</summary>
-	```python
+
+```python
 def get_or_create_sqs_queue_object(queue_name):
     if settings.DEBUG or settings.TEST:
         queue_name = "evalai_submission_queue"
@@ -226,11 +232,12 @@ def get_or_create_sqs_queue(queue_name):
             logger.exception("Cannot get queue: {}".format(queue_name))
         queue = sqs.create_queue(QueueName=queue_name)
     return queue
-	```
+```
 </details>
 <details>
 	<summary>https://github.com/Cloud-CV/EvalAI/blob/master/apps/jobs/sender.py#L16-L55</summary>
-	```python
+
+```python
 def get_or_create_sqs_queue(queue_name):
     """
     Args:
@@ -271,22 +278,149 @@ def get_or_create_sqs_queue(queue_name):
         else:
             logger.exception("Cannot get or create Queue")
     return queue
-	```
+```
 </details>
+
 #### Remove code duplication
 Use a common helper for achieving both
-* https://github.com/Cloud-CV/EvalAI/blob/master/scripts/migration/set_team_name_unique.py#L13-L24
-* https://github.com/Cloud-CV/EvalAI/blob/master/scripts/migration/set_team_name_unique.py#L28-L39
+<details>
+	<summary>https://github.com/Cloud-CV/EvalAI/blob/master/scripts/migration/set_team_name_unique.py#L13-L24</summary>
+
+```python
+    try:
+        for participant_team in participant_teams:
+            if participant_team.team_name in participant_team_list:
+                participant_team.team_name = "{0}_{1}".format(
+                    participant_team.team_name,
+                    participant_team_iter)
+                participant_team.save()
+                participant_team_iter = participant_team_iter + 1
+            else:
+                participant_team_list.append(participant_team.team_name)
+    except Exception as e:
+        print(e)
+```
+</details>
+
+<details>
+	<summary>https://github.com/Cloud-CV/EvalAI/blob/master/scripts/migration/set_team_name_unique.py#L28-L39</summary>
+```python
+    try:
+        for host_team in host_teams:
+            if host_team.team_name in host_team_list:
+                host_team.team_name = "{0}_{1}".format(
+                    host_team.team_name,
+                    host_team_iter)
+                host_team.save()
+                host_team_iter = host_team_iter + 1
+            else:
+                host_team_list.append(host_team.team_name)
+    except Exception as e:
+        print(e)
+```
+</details>
+
 #### Remove code duplication
-* https://github.com/Cloud-CV/EvalAI/blob/master/apps/jobs/views.py#L880-L889
-* https://github.com/Cloud-CV/EvalAI/blob/master/apps/jobs/views.py#L1316-L1323
+<details>
+	<summary>https://github.com/Cloud-CV/EvalAI/blob/master/apps/jobs/views.py#L880-L889</summary>
+```python
+            try:
+                results = json.loads(submission_result)
+            except (ValueError, TypeError) as exc:
+                response_data = {
+                    "error": "`result` key contains invalid data with error {}."
+                    "Please try again with correct format.".format(str(exc))
+                }
+                return Response(
+                    response_data, status=status.HTTP_400_BAD_REQUEST
+                )
+```
+</details>
+
+<details>
+	<summary>https://github.com/Cloud-CV/EvalAI/blob/master/apps/jobs/views.py#L1316-L1323</summary>
+
+```python
+    try:
+        data = json.loads(data)
+    except (ValueError, TypeError) as exc:
+        response_data = {
+            "error": "`leaderboard_data` key contains invalid data with error {}."
+            "Please try again with correct format.".format(str(exc))
+        }
+        return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+```
+
 #### Remove code duplication
-* https://github.com/Cloud-CV/EvalAI/blob/master/apps/challenges/views.py#L262-L270
-* https://github.com/Cloud-CV/EvalAI/blob/master/apps/jobs/views.py#L221-L231
+<details>
+	<summary>https://github.com/Cloud-CV/EvalAI/blob/master/apps/challenges/views.py#L262-L270</summary>
+
+```python
+    if len(challenge.banned_email_ids) > 0:
+        for participant_email in participant_team.get_all_participants_email():
+            if participant_email in challenge.banned_email_ids:
+                message = "You're a part of {} team and it has been banned from this challenge. \
+                Please contact the challenge host.".format(
+                    participant_team.team_name
+                )
+                response_data = {"error": message}
+                return Response(
+                    response_data, status=status.HTTP_406_NOT_ACCEPTABLE
+                )
+```
+</details>
+
+<details>
+	<summary>https://github.com/Cloud-CV/EvalAI/blob/master/apps/jobs/views.py#L221-L231</summary>
+
+```python
+        all_participants_email = participant_team.get_all_participants_email()
+        for participant_email in all_participants_email:
+            if participant_email in challenge.banned_email_ids:
+                message = "You're a part of {} team and it has been banned from this challenge. \
+                Please contact the challenge host.".format(
+                    participant_team.team_name
+                )
+                response_data = {"error": message}
+                return Response(
+                    response_data, status=status.HTTP_403_FORBIDDEN
+                )
+```
+</details>
+
 Note: the status codes returned are different in the above two cases for the same case (email id of a participant is banned). Consider making both same.
+
 #### Remove code duplication
-* https://github.com/Cloud-CV/EvalAI/blob/master/apps/challenges/views.py#L941-L947
-* https://github.com/Cloud-CV/EvalAI/blob/master/apps/challenges/views.py#L948-L954
+<details>
+	<summary>https://github.com/Cloud-CV/EvalAI/blob/master/apps/challenges/views.py#L941-L947</summary>
+
+```python
+        if "default_order_by" not in leaderboard_schema[0].get("schema"):
+            message = (
+                "There is no 'default_order_by' key in leaderboard "
+                "schema. Please add it and then try again!"
+            )
+            response_data = {"error": message}
+            return Response(response_data, status.HTTP_406_NOT_ACCEPTABLE)
+```
+</details>
+
+<details>
+	<summary>https://github.com/Cloud-CV/EvalAI/blob/master/apps/challenges/views.py#L948-L954</summary>
+
+```python
+        if "labels" not in leaderboard_schema[0].get("schema"):
+            message = (
+                "There is no 'labels' key in leaderboard "
+                "schema. Please add it and then try again!"
+            )
+            response_data = {"error": message}
+            return Response(response_data, status.HTTP_406_NOT_ACCEPTABLE)
+```
+
+
+#### Improve code structure for remote_submission_worker and submission_worker
+Refer: https://github.com/Cloud-CV/EvalAI/issues/2542 
 
 
 These changes can help code maintainability improve greatly.
