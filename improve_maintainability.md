@@ -425,8 +425,8 @@ Note: the status codes returned are different in the above two cases for the sam
 #### Improve code structure for remote_submission_worker and submission_worker
 Refer: https://github.com/Cloud-CV/EvalAI/issues/2542 
 
-
-These changes can help code maintainability improve greatly.
+<br>
+These changes can help improve code maintainability greatly.
 Apart from this, extra refactoring can be done so as to remove
 problems such as "too many return statements" or "too deeply nested statements",
 many of which will be already solved by merging these changes.
