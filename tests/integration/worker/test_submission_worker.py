@@ -278,7 +278,7 @@ class RunSubmissionTestClass(BaseTestClass):
             visibility=ChallengePhaseSplit.PUBLIC,
         )
         self.metric = 10
-        self.leaderboard_data = LeaderboardData.objects.create(
+        self.leaderboard_data = LeaderboardData(
             challenge_phase_split=self.challenge_phase_split,
             submission=self.submission,
             leaderboard=self.leaderboard,
