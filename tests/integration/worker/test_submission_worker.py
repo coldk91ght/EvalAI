@@ -278,7 +278,7 @@ class RunSubmissionTestClass(BaseTestClass):
             visibility=ChallengePhaseSplit.PUBLIC,
         )
         self.metric = 10
-        self.leaderboard_data = LeaderboardData(
+        self.leaderboard_data = LeaderboardData.objects.create(
             challenge_phase_split=self.challenge_phase_split,
             submission=self.submission,
             leaderboard=self.leaderboard,
@@ -432,7 +432,7 @@ class RunSubmissionTestClass(BaseTestClass):
             submission_metadata="",
         )
 
-        mock_lb.assert_called_with([self.leaderboard_data])
+        mock_lb.assert_called_once()
 
         self.assertEqual(self.submission.started_at, starting_time)
         self.assertEqual(self.submission.status, Submission.FINISHED)
