@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "karma start karma.conf.js"
+    "test": "karma start karma.conf.js",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "author": "",
   "license": "ISC",
@@ -32,7 +34,8 @@
     "gulp-uglify": "^3.0.0",
     "lodash": "^4.16.6",
     "merge-stream": "^1.0.0",
-    "node-sass": "^4.9.0"
+    "node-sass": "^4.9.0",
+    "snyk": "^1.316.1"
   },
   "repository": {
     "type": "git",
@@ -49,5 +52,6 @@
     "karma-coveralls": "^2.1.0",
     "karma-jasmine": "^2.0.1",
     "puppeteer": "^1.16.0"
-  }
+  },
+  "snyk": true
 }
