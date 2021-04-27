@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "autoprefixer": "^8.2.0",
+    "autoprefixer": "^10.0.0",
     "connect-modrewrite": "^0.10.2",
     "del": "^3.0.0",
     "eslint": "^4.19.1",
@@ -24,7 +24,7 @@
     "gulp-if": "^2.0.2",
     "gulp-inject": "^4.2.0",
     "gulp-path": "^4.0.0",
-    "gulp-postcss": "^7.0.1",
+    "gulp-postcss": "^9.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^1.0.0",
     "gulp-sass": "^4.0.1",
